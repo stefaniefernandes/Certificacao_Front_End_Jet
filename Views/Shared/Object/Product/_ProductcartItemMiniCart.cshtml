@@ -1,0 +1,89 @@
+﻿@using DomainCheckout.Entities
+@model DomainCheckout.Entities.CartItem
+
+@{
+  string classe_qtd = "ui icon button ";
+  string classe_remove = "mini ui icon red button produto ";
+  string id_ipt_qtd = "qtd_";
+  string classe_stock = "stock_";
+  string classe_ipt_qtd = "";
+  bool data_signature = false;
+
+  if (Session["EventList"] != null)
+  {
+    classe_qtd += "qtdActionEventList";
+    classe_remove += "removeItemEventList";
+  }
+  else
+  {
+    classe_qtd += "qtdActionMiniCart";
+    classe_remove += "removeCartItem";
+  }
+}
+
+<div class="item item-cart-product @(Model.Stock == 0 || Model.Stock < Model.Quantity || Model.FlagExhausted == EnumeratorsCommons.EnumYesNo.Yes ? "exhausted" : "")" data-id-produto="@Model.IdProduct" data-id-cart="@Model.IdCartItem" data-signature="@Model.IsRecurrent" id="itemCartProduct_@Model.IdCartItem">
+
+    <div class="image">
+        <a href="/Product/Details/@Model.IdProduct" class="product image" id="name_@Model.IdCartItem">
+            <img src="@Model.ProductImage.ImageDefault" onerror="imgError(this)">
+        </a>
+    </div>
+    <div class="content">
+        <div class="nameProduct">
+            <a href="/Product/Details/@Model.IdProduct" class="product title" id="name_@Model.IdCartItem">
+                @Html.Raw(Model.NameProduct)
+            </a>
+        </div>
+        @if (Model.IsKit)
+        {
+            <div class="kit">
+                @foreach (var productKit in Model.ProductsKit)
+                {
+                    <div class="description">@(string.Concat(string.Format("{0:n0}", productKit.Quantity), " x ", productKit.Name))</div>
+                }
+            </div>
+        }
+        <div class="meta product avaibility" id="availability_@Model.IdCartItem">
+            @if (Model.Stock == 0)
+            {
+                @Html.Raw("Produto Esgotado")
+            }
+            else if (Model.AvailabilityStatus != null)
+            {
+                @Model.AvailabilityStatus.DescriptionCart
+            }
+        </div>
+        
+        <div class="priceProduct" id="priceProduct_@Model.IdCartItem">@(Model.Quantity > 1 ? Model.Quantity+"x" : "") @string.Format("{0:c}", Model.PriceProduct)</div>
+        
+        <div class="description">
+             @if (Model.Stock == 0 || Model.Stock < Model.Quantity || Model.FlagExhausted == EnumeratorsCommons.EnumYesNo.Yes)
+             {
+                 <span class="ui label basic primary exhausted">PRODUTO ESGOTADO</span>
+             }
+             else
+             {
+                 <div class="ui qtd action mini input">
+                     <button class="@classe_qtd mini" data-id="@Model.IdCartItem" data-action="minus" data-id-produto="@Model.IdProduct" data-id-sku="@Model.IdSku">
+                         <i class="icon minus"></i>
+                     </button>
+                     <input type="hidden" id="qtdInicial_@Model.IdCartItem" value="@Model.Quantity"/>
+                     <input type="hidden" value="@Model.Stock" name="stock_@Model.IdCartItem" id="stock_@Model.IdCartItem"/>
+                     <input type="number" class="text center quantidade" min="0" step="1" size="3" value="@Model.Quantity" name="@Model.IdCartItem" id="qtd_@Model.IdCartItem" data-id="@Model.IdCartItem" data-action="ipt"/>
+
+                     <button class="@classe_qtd mini" data-id="@Model.IdCartItem" data-action="plus" data-id-produto="@Model.IdProduct" data-id-sku="@Model.IdSku">
+                         <i class="icon plus"></i>
+                     </button>
+                 </div>
+             }
+        </div>
+        
+        <button class="@classe_remove" data-id="@Model.IdCartItem" data-id-produto="@Model.IdProduct" data-id-sku="@Model.IdSku">
+            <i class="trash alternate outline icon"></i>
+        </button>
+    </div>
+    
+    <div class="ui divider"></div>
+    
+</div>
+

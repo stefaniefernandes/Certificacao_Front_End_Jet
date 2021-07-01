@@ -1,0 +1,24 @@
+﻿@model DomainProduct.Result
+
+<div class="type-grid" data-grid-number="@(Model.Settings.PageCount > 1 ? Model.Settings.PageNumber : 0)">
+    <div class="ui three doubling cards centered">
+        @if (Model != null && Model.Products.Count() > 0)
+        {
+            foreach (var product in Model.Products)
+            {
+                <!-- Page: ~/Views/Shared/Object/Product/_ProductInCard.cshtml -->
+                @Html.Partial("~/Views/Shared/Object/Product/_ProductInCard.cshtml", product)
+            }
+        }
+        else
+        {
+            <div class="row margin top large">Nenhum produto encontrado nesta categoria!</div>
+        }
+    </div>
+</div>
+
+@if (Model.Settings.PageCount > 1)
+{
+    <!-- Page: ~/Views/Shared/Parts/_NewPagination.cshtml -->
+    @Html.Partial("~/Views/Shared/Parts/_NewPagination.cshtml", Model.Settings, new ViewDataDictionary() { { "parameters", ViewBag.parameters } } )
+}

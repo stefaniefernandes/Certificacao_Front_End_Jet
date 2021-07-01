@@ -1,0 +1,37 @@
+﻿<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>@(string.IsNullOrEmpty(ViewBag.Title) ? LojaCorp.Control.Company._Company.Title : ViewBag.Title)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="google-site-verification" content="RrgdVHHoaIqiuP66THCL-Dl77RFhIAUYLKqPitC1EbU" />
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="theme-color" content="#ffffff">
+
+@{
+string urlCanonical = Request.Url.AbsolutePath.ToLower();
+string canonical = !Request.Url.AbsoluteUri.Contains("www") ? "https://www." + Request.Url.Host + Request.Path : "https://" + Request.Url.Host + Request.Path;
+
+string[] words = urlCanonical.Split('/');
+
+if (words[1] == "" || words[1].ToLower() == "home")
+{
+<link rel="canonical" href="@(!Request.Url.Host.Contains("www") ? "https://www." + Request.Url.Host : "https://" + Request.Url.Host)"/>
+}
+else
+{
+<link rel="canonical" href="@canonical"/>
+}
+} 
+
+
+@Html.Partial("Common/_SEO")
+
+<script type="text/javascript">
+    window.onload = function () {
+        var svr = document.createElement("div");
+        svr.setAttribute("type", "hidden");
+        svr.setAttribute("id", "svr");
+        svr.setAttribute("value", "@Context.Server.MachineName");
+
+        document.body.appendChild(svr);
+    }
+</script>

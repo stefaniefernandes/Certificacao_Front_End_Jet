@@ -1,0 +1,120 @@
+@{
+  ViewBag.Title = "Stefanie Fernandes";
+  Layout = "~/Views/Shared/Base/_Layout.cshtml";
+}
+
+<style>
+    .container-forms{
+        display: flex;
+    }
+     .ui.form input:not([type]), .ui.form input[type=date], .ui.form input[type=datetime-local], .ui.form input[type=email], .ui.form input[type=file], .ui.form input[type=number], .ui.form input[type=password], .ui.form input[type=search], .ui.form input[type=tel], .ui.form input[type=text], .ui.form input[type=time], .ui.form input[type=url], .ui.form textarea {
+        width: 230px;
+     }
+     .ui.form{
+         padding: 50px;
+         margin-left: 100px;
+     }
+    .mostrarForms{
+         padding: 45px;
+    }
+</style>
+
+<div class="container-forms">
+    <form class="ui form error">
+        <div class="required field">
+            <label>Nome</label>
+            <input id="nomeid" type="text" placeholder="Ex.: Stefanie Fernandes" onblur="mostrarDados()">
+        </div>
+        <div class="required field">
+            <label>E-mail</label>
+            <input id="emailid" onblur="mostrarDados()" type="email" placeholder="exemplo@exemplo.com">
+        </div>
+        <div class="required field">
+            <label>Telefone</label>
+            <input id="foneid" onblur="mostrarDados()" type="tel" class="masked mask_phone" placeholder="(00)0000-0000">
+        </div>
+        <div class="required field">
+            <label>Assunto</label>
+            <input id="assuntoid" onblur="mostrarDados()" type="text" placeholder="Digite o assunto">
+        </div>
+        <div class="required field">
+            <label>Mensagem</label>
+            <textarea id="msgid" onblur="mostrarDados()" placeholder="Digite a mensagem"></textarea>
+        </div>
+        <div class="ui submit button" id='salvar' onclick="salvarSession()">Enviar</div>
+        <div class="ui error message"></div>              
+    </form>
+
+    <div class="mostrarForms">
+        <h3>Nome digitado:</h3>
+        <p id="nomeDigitado"></p>
+        <h3>Email digitado:</h3>
+        <p id="emailDigitado"></p>
+        <h3>Telefone digitado:</h3>
+        <p id="foneDigitado"></p>
+        <h3>Assunto digitado:</h3>
+        <p id="assuntoDigitado"></p>
+        <h3>Mensagem digitado:</h3>
+        <p id="msgDigitado"></p>
+    </div>
+</div>
+
+<!-- validação do forms -->
+<script>
+    $('.ui.form')
+    .form({
+        fields: {
+            nomeid: {
+                identifier: 'nomeid',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Por favor digite seu nome'
+                    }
+                ]
+            },
+            foneid: {
+                identifier: 'foneid',
+                rules: [
+                    {
+                        type: 'minLength[9]',
+                        prompt: 'Digite um telefone valido'
+                    }
+                ]
+            },
+            emailid: {
+                identifier: 'emailid',
+                rules: [
+                    {
+                        type: 'email',
+                        prompt: 'Por favor digite um endereco de email valido'
+                    }
+                ]
+            },
+            assuntoid: {
+                identifier: 'assuntoid',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Por favor digite o assunto'
+                    }
+                ]
+            },
+            msgid: {
+                identifier: 'msgid',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'A mensagem esta vazia'
+                    }
+                ]
+            },
+        }
+    })
+    ;
+</script>
+
+<!-- script na pasta function-->
+
+
+   

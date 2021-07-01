@@ -1,0 +1,16 @@
+﻿@model DomainCheckout.Entities.Cart
+
+@if (Model != null && Model.CartItems != null && Model.CartItems.Any())
+{
+    foreach (var product in Model.CartItems.OrderByDescending(c => c.IdCartItem))
+    {
+        <!-- Page: ~/Views/Shared/Object/Product/_ProductCartItem.cshtml -->
+        @Html.Partial("~/Views/Shared/Object/Product/_ProductcartItemMiniCart.cshtml", product)
+    }
+    
+}
+else
+{
+    <!-- Page: ~/Views/Shared/Object/Product/_ProductCartItem.cshtml -->
+    @Html.Partial("~/Views/Shared/Object/Product/_ProductcartItemMiniCartEmpty.cshtml")
+}

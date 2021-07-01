@@ -1,0 +1,33 @@
+.ui {
+
+    &.right {
+
+        &.aligned {
+            text-align: right !important;
+        }
+    }
+
+    &.left {
+
+        &.aligned {
+            text-align: left !important;
+        }
+    }
+
+    &.center {
+
+        &.aligned {
+            text-align: center !important;
+        }
+    }
+}
+
+.font-weight {
+    &.normal {
+        font-weight: 500 !important;
+    }
+
+    &.bold {
+        font-weight: 700 !important;
+    }
+}

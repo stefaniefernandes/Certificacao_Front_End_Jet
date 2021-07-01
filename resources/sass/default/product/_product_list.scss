@@ -1,0 +1,63 @@
+
+/* Lista Produtos */
+.produtoList {
+	.content {
+	  .tags{
+		margin-top:25px;
+	  }
+		a {
+			color: $black;
+
+			@media screen and (max-width: $mobile-bp) {
+				margin-top:10px !important;
+	}
+		}
+	}
+
+	.header {
+		h1 {
+			font-weight: normal;
+			color: $black;
+			font-size: 14px;
+	}
+	}
+
+
+	.valores {
+	  color: rgba(0,0,0,.9) !important;
+		/*span{
+		clear: both;
+		display: block;
+		}*/
+		.precoBase{
+			color: #666666;
+			font-size: 14px;
+		i{
+		  text-decoration: line-through;
+				font-style: normal;
+		}
+	  }
+	  .preco{
+			color: $primary-color;
+			font-size: 18px;
+			line-height: 30px;
+			font-weight: 900;
+		&:after{
+		  content: '\A';
+		  white-space: pre;
+		}
+	  }
+
+		.parcelamento {
+			color: #666666;
+			font-size: 14px;
+		}
+
+		.btn-comprar-card {
+			@media screen and (max-width: $mobile-bp) {
+				width:100% !important;
+			}
+
+		}
+	}
+  }

@@ -1,0 +1,67 @@
+﻿@model List<DomainProduct.Entities.ProductsKit>
+
+<!--COMEÇO KIT DE PRODUTO-->
+<div class="row product-grid kit-product">
+    <div class="column blocoInfo">
+        <div class="ui middle aligned margin bottom medium blocoValores blocoKit">
+
+            <div class="one column ui attached segment">
+                <div class="column">
+                    <h5>Produtos no Kit</h5>
+                </div>
+
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var product in Model)
+                    {
+                        <div class="ui stackable two column grid margin top medium">
+                            <div class="column">
+                                <img src="@product.ImageHome" onerror="imgError(this)" class="ui image tiny">
+                            </div>
+                            <div class="column">
+                                <div class="infoKit">
+                                    <span class="nameProduct">@product.Name</span>
+                                    <div class="valores">
+                                        @if (product.Discount > 0)
+                                        {
+                                            <span class="valorDe">de @(string.Format("{0:c}", product.Price)) por</span>
+                                            <span class="valorPor">@(string.Format("{0:c}", product.PricePromotion))</span>
+                                            <span class="kit">no kit</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="valorPor">@(string.Format("{0:c}", product.Price))</span>
+                                            <span class="kit">no kit</span>
+                                        }
+                                    </div>
+                                    @if (product.SKUs != null && product.SKUs.Any())
+                                    {
+                                        string variations = string.Empty;
+                                        <div class="variacao">
+                                            @foreach (var sku in product.SKUs)
+                                            {
+                                                foreach (var variation in sku.Variations)
+                                                {
+                                                    if (!string.IsNullOrEmpty(variation.Color))
+                                                    {
+                                                        <button class="ui basic button variacao cor" style="background-color: @variation.Color.Trim() !important;" data-tooltip="@variation.Name" data-tipo="color"></button>
+                                                    }
+                                                    else
+                                                    {
+                                                        <button class="ui basic button" data-tooltip="@variation.Name">@variation.Name</button>
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    }
+                                    <div class="quantidade">Quantidade: @product.Quantity</div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<!--FIM KIT DE PRODUTO-->

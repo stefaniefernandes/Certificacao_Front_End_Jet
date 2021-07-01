@@ -1,0 +1,61 @@
+﻿@using DomainCheckout.Entities
+@model DomainCheckout.Entities.Cart
+
+@{ 
+    var _paymentLink = false;
+    if (Session["PaymentLinkChangeBrand"] != null && (bool)Session["PaymentLinkChangeBrand"] == true)
+    {
+        _paymentLink = true;
+    }
+}
+<div class="ui segment">
+    
+    
+    <!-- Resumo das Compras -->
+    <div id="resumoCheckout">
+        @Html.Partial("~/Views/Shared/Parts/Checkout/_Part_Checkout_Resumo.cshtml", Model)
+    </div>
+    
+    <div class="compra">
+        <div class="ui accordion productSummary">
+            <div class="title transparent">
+                Visualizar <strong>Produtos</strong>
+                <i class="ui icon dropdown right floated"></i>
+            </div>
+            <div class="content">
+                <div class="ui fluid items compra unstackable" id="checkout_products_list">
+                    @if (Model != null && Model.CartItems != null)
+                    {
+                        foreach (var product in Model.CartItems)
+                        {
+                            <div class="item @(product.Stock == 0 || product.Stock < product.Quantity || product.FlagExhausted == EnumeratorsCommons.EnumYesNo.Yes ? "exhausted" : "")"
+                                 data-id-cart="@product.IdCartItem" data-recurrent="@product.IsRecurrent" id="itemCartProduct_@product.IdCartItem">
+                                <div class="image">
+                                    <img src="@product.ProductImage.ImageDefault" onerror="imgError(this)" />
+                                </div>
+                                <div class="content">
+                                    <a class="product title description"><strong>@Html.Raw(product.NameProduct)</strong></a>
+                                    <div class="description">Quantidade: @product.Quantity @(product.Quantity > 1 ? "Unidades" : "Unidade")</div>
+                                    <div class="extra text color black left">@string.Format("{0:c}", product.PriceTotalProduct)</div>
+
+                                    @if ((product.Stock == 0 || product.Stock < product.Quantity || product.FlagExhausted == EnumeratorsCommons.EnumYesNo.Yes) && _paymentLink == false)
+                                    {
+                                        <span class="ui label basic primary margin top small exhausted">PRODUTO ESGOTADO</span>
+                                        <button class="removeCartItem payment-cart" data-id="@product.IdCartItem">
+                                            <i class="trash alternate outline icon"></i>
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+                <div id="compraRecorrenteFrequencia"></div>
+            </div>
+            @if (Session["PaymentLinkChangeBrand"] == null || (bool)Session["PaymentLinkChangeBrand"] == false)
+            {
+                <a class="backCart" href="/Checkout">Voltar para o carrinho</a>
+            }
+        </div>
+    </div>
+</div>

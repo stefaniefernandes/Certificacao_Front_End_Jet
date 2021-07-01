@@ -1,0 +1,112 @@
+.lista.casamento {
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 41%,rgba(255,255,255,1) 54%,#eee 54%,#eee 100%);
+  margin-top:50px;
+  padding-bottom: 50px;
+  
+  + .footer {
+    margin-top: 0 !important;
+  }
+
+  @media screen and (max-width: $mobile-bp) {
+    margin-top:0px;
+  }
+
+  .index {
+
+    .img-banner-casal {
+      margin-top: 50px;
+
+      @media screen and (max-width: $tablet-bp-max) {
+        position: absolute;
+        bottom: 85px;
+      }
+
+      @media only screen and (max-width: 1199px) and (min-width: 992px) {
+        position: absolute;
+        bottom: 55px;
+      }
+    }
+
+    .busca-lista {
+
+      .img-banner-passaros {
+      }
+
+      h1 {
+        color: $primary-color;
+
+        span {
+          font-weight: normal;
+          display: inline-block;
+        }
+      }
+
+      h2 {
+        font-weight: lighter;
+      }
+
+      .ui.form {
+        margin: 20px 0px;
+
+        @media screen and (max-width: $mobile-bp) {
+          margin: auto;
+        }
+
+        #parametro {
+          width: calc(100% - 119px) !important;
+        }
+        
+      }
+    }
+
+    .login-lista {
+      margin-top:100px;
+
+
+      h1 {
+        font-size: 19px;
+        text-transform: uppercase;
+        font-weight: 600;
+        margin: 0 0 10px 0;
+
+        @media screen and (max-width: $mobile-bp) {
+          padding-top: 70px;
+        }
+      }
+      
+      p {
+        color:#666;
+      }
+    }
+  }
+
+  .barra-azul {
+    content: " ";
+    background-color: $primary-color;
+    height: 195px;
+    top: -195px;
+    width: 100%;
+    z-index: -1;
+    display: block;
+    position: relative;
+    float: left;
+
+    @media screen and (max-width: $mobile-bp) {
+      display: none;
+    }
+
+    &:before {
+      content: " ";
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(156, 172, 187, 0.15) 100%);
+      height: 100px;
+      width: 100%;
+      display: block;
+      bottom: 195px;
+      position: absolute;
+
+      @media screen and (max-width: $mobile-bp) {
+        display: none;
+      }
+    }
+  }
+}

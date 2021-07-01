@@ -1,0 +1,26 @@
+﻿@model DomainProduct.Result
+
+<div class="ui container listResult type-list" data-grid-number="@(Model.Settings.PageCount > 1 ? Model.Settings.PageNumber : 0)">
+    <div class="ui divided items relaxed">
+        @if (Model != null && Model.Products.Count() > 0)
+        {
+            foreach (var product in Model.Products)
+            {
+                <!-- Page: ~/Views/Shared/Object/Product/_ProductInList.cshtml -->
+                @Html.Partial("~/Views/Shared/Object/Product/_ProductInListEvents.cshtml", product)
+            }
+        }
+        else
+        {
+            <div class="row margin top large">Nenhum produto encontrado nesta categoria!</div>
+        }
+    </div>
+    <div class="ui divider"></div>
+</div>
+
+
+@if (Model.Settings.PageCount > 1)
+{
+    <!-- Page: ~/Views/Shared/Parts/_NewPagination.cshtml -->
+    @Html.Partial("~/Views/Shared/Parts/_NewPagination.cshtml", Model.Settings, new ViewDataDictionary() { { "parameters", ViewBag.parameters } } )
+}
